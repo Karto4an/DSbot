@@ -104,4 +104,4 @@ async def _test(ctx: SlashContext):
     await ctx.message.delete()
     await remove_except(member, role)
 
-bot.run('NTg4MDc2NjExMzI5NTg5MjU0.XP_3Bg.TSmV3jkAvkGCfZshmPiD7-IWWrA')
+bot.run('NTg4MDc2NjExMzI5NTg5MjU0.XP_3Bg.VbclgaU_VDjEVHy7rcF7Pak40-M')
