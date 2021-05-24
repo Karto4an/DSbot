@@ -14,6 +14,7 @@ async def remove_except(member, role):
     purple = discord.utils.get(member.guild.roles, name = 'Purple')
     black = discord.utils.get(member.guild.roles, name = 'Black')
     white = discord.utils.get(member.guild.roles, name = 'White')
+    silver = discord.utils.get(member.guild.roles, name = 'Silver')
     role = role.name
     if role != 'Red':
         await member.remove_roles(red)
@@ -31,6 +32,8 @@ async def remove_except(member, role):
         await member.remove_roles(black)
     if role != 'White':
         await member.remove_roles(white)
+    if role != 'Silver':
+        await member.remove_roles(silver)
 
 @slash.slash(name="red")
 async def _test(ctx: SlashContext):
@@ -99,6 +102,15 @@ async def _test(ctx: SlashContext):
 async def _test(ctx: SlashContext):
     member = ctx.author
     role = discord.utils.get(member.guild.roles, name = 'White')
+    await member.add_roles(role)
+    message = await ctx.send('Success!')
+    await ctx.message.delete()
+    await remove_except(member, role)
+
+@slash.slash(name="silver")
+async def _test(ctx: SlashContext):
+    member = ctx.author
+    role = discord.utils.get(member.guild.roles, name = 'Silver')
     await member.add_roles(role)
     message = await ctx.send('Success!')
     await ctx.message.delete()
