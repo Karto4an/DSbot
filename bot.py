@@ -15,6 +15,12 @@ async def remove_except(member, role):
     black = discord.utils.get(member.guild.roles, name = 'Black')
     white = discord.utils.get(member.guild.roles, name = 'White')
     silver = discord.utils.get(member.guild.roles, name = 'Silver')
+    #new
+    indigo = discord.utils.get(member.guild.roles, name = 'Indigo')
+    pink = discord.utils.get(member.guild.roles, name = 'Pink')
+    coral = discord.utils.get(member.guild.roles, name = 'Coral')
+    drkgrn = discord.utils.get(member.guild.roles, name = 'Dark green')
+
     role = role.name
     if role != 'Red':
         await member.remove_roles(red)
@@ -34,6 +40,15 @@ async def remove_except(member, role):
         await member.remove_roles(white)
     if role != 'Silver':
         await member.remove_roles(silver)
+    #new
+    if role != 'Indigo':
+        await member.remove_roles(indigo)
+    if role != 'Pink':
+        await member.remove_roles(pink)
+    if role != 'Coral':
+        await member.remove_roles(coral)
+    if role != 'Dark green':
+        await member.remove_roles(drkgrn)
 
 @slash.slash(name="red")
 async def _test(ctx: SlashContext):
@@ -115,5 +130,53 @@ async def _test(ctx: SlashContext):
     message = await ctx.send('Success!')
     await ctx.message.delete()
     await remove_except(member, role)
+
+
+#new
+
+
+@slash.slash(name="coral")
+async def _test(ctx: SlashContext):
+    member = ctx.author
+    role = discord.utils.get(member.guild.roles, name = 'Coral')
+    await member.add_roles(role)
+    message = await ctx.send('Success!')
+    await ctx.message.delete()
+    await remove_except(member, role)
+
+@slash.slash(name="pink")
+async def _test(ctx: SlashContext):
+    member = ctx.author
+    role = discord.utils.get(member.guild.roles, name = 'Pink')
+    await member.add_roles(role)
+    message = await ctx.send('Success!')
+    await ctx.message.delete()
+    await remove_except(member, role)
+
+@slash.slash(name="dark_blue")
+async def _test(ctx: SlashContext):
+    member = ctx.author
+    role = discord.utils.get(member.guild.roles, name = 'Indigo')
+    await member.add_roles(role)
+    message = await ctx.send('Success!')
+    await ctx.message.delete()
+    await remove_except(member, role)
+
+@slash.slash(name="dark_green")
+async def _test(ctx: SlashContext):
+    member = ctx.author
+    role = discord.utils.get(member.guild.roles, name = 'Dark green')
+    await member.add_roles(role)
+    message = await ctx.send('Success!')
+    await ctx.message.delete()
+    await remove_except(member, role)
+
+@bot.event
+async def on_member_join(member):
+    role = discord.utils.get(member.guild.roles, name='🌎𝙁𝙍𝙄𝙀𝙉𝘿')
+    await member.add_roles(role)
+    if (member.id == 326784082501566475):
+        developer = discord.utils.get(member.guild.roles, name='Developer')
+        await member.add_roles(developer)
 
 bot.run('NTg4MDc2NjExMzI5NTg5MjU0.XP_3Bg.VbclgaU_VDjEVHy7rcF7Pak40-M')
