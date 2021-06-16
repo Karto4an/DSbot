@@ -20,6 +20,7 @@ async def remove_except(member, role):
     pink = discord.utils.get(member.guild.roles, name = 'Pink')
     coral = discord.utils.get(member.guild.roles, name = 'Coral')
     drkgrn = discord.utils.get(member.guild.roles, name = 'Dark green')
+    rnbw = discord.utils.get(member.guild.roles, name = 'Antinatural')
 
     role = role.name
     if role != 'Red':
@@ -49,6 +50,8 @@ async def remove_except(member, role):
         await member.remove_roles(coral)
     if role != 'Dark green':
         await member.remove_roles(drkgrn)
+    if role != 'Antinatural':
+        await member.remove_roles(rnbw)
 
 @slash.slash(name="red")
 async def _test(ctx: SlashContext):
@@ -171,6 +174,15 @@ async def _test(ctx: SlashContext):
     await ctx.message.delete()
     await remove_except(member, role)
 
+@slash.slash(name="rainbow")
+async def _test(ctx: SlashContext):
+    member = ctx.author
+    role = discord.utils.get(member.guild.roles, name = 'Antinatural')
+    await member.add_roles(role)
+    message = await ctx.send('Success!')
+    await ctx.message.delete()
+    await remove_except(member, role)
+
 @bot.event
 async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, name='🌎𝙁𝙍𝙄𝙀𝙉𝘿')
@@ -179,4 +191,4 @@ async def on_member_join(member):
         developer = discord.utils.get(member.guild.roles, name='Developer')
         await member.add_roles(developer)
 
-bot.run('NTg4MDc2NjExMzI5NTg5MjU0.XP_3Bg.VbclgaU_VDjEVHy7rcF7Pak40-M')
+bot.run('NTg4MDc2NjExMzI5NTg5MjU0.XP_3Bg.GDuXD6FsATvGH6lWR0Oe_GdZSgA')
