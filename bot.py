@@ -190,7 +190,7 @@ async def _test(ctx: SlashContext):
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if reaction.message.id == '861669668800692295':
+    if reaction.message.id == 861669668800692295:
         print(reaction)
         
 
