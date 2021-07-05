@@ -1,6 +1,10 @@
 import discord
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
+from dotenv import load_dotenv
+
+load_dotenv()
+token = os.getenv('BOT_TOKEN')
 
 bot = commands.Bot(command_prefix = '...') # , intents=discord.Intents.all()
 slash = SlashCommand(bot)
@@ -191,4 +195,4 @@ async def on_member_join(member):
         developer = discord.utils.get(member.guild.roles, name='Developer')
         await member.add_roles(developer)
 
-bot.run('NTg4MDc2NjExMzI5NTg5MjU0.XP_3Bg.GDuXD6FsATvGH6lWR0Oe_GdZSgA')
+bot.run(token)
