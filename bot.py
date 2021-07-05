@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 token = os.getenv('BOT_TOKEN')
 
-bot = commands.Bot(command_prefix = 'loh') # , intents=discord.Intents.all()
+bot = commands.Bot(command_prefix = '...') # , intents=discord.Intents.all()
 slash = SlashCommand(bot)
 
 async def remove_except(member, role):
@@ -189,11 +189,9 @@ async def _test(ctx: SlashContext):
     await remove_except(member, role)
 
 @bot.event
-async def on_member_join(member):
-    role = discord.utils.get(member.guild.roles, name='🌎𝙁𝙍𝙄𝙀𝙉𝘿')
-    await member.add_roles(role)
-    if (member.id == 326784082501566475):
-        developer = discord.utils.get(member.guild.roles, name='Developer')
-        await member.add_roles(developer)
+async def on_reaction_add(reaction, user):
+    if reaction.message.id == '861669668800692295':
+        print(reaction)
+        
 
 bot.run(token)
