@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 token = os.getenv('BOT_TOKEN')
 
-bot = commands.Bot(command_prefix = '...') # , intents=discord.Intents.all()
+bot = commands.Bot(command_prefix = 'loh') # , intents=discord.Intents.all()
 slash = SlashCommand(bot)
 
 async def remove_except(member, role):
