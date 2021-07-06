@@ -232,7 +232,7 @@ async def check_role(member):
 
 @bot.command()
 async def test(ctx):
-    # Make a row of buttons
+
     row_of_buttons = ActionRow(
         Button(
             style=ButtonStyle.green,
@@ -245,18 +245,17 @@ async def test(ctx):
             custom_id="red"
         )
     )
-    # Send a message with buttons
+
     msg = await ctx.send(
         "This message has buttons!",
         components=[row_of_buttons]
     )
-    # Wait for someone to click on them
+
     def check(inter):
         return inter.message.id == msg.id
     inter = await ctx.wait_for_button_click(check)
-    # Send what you received
+
     button_text = inter.clicked_button.label
     await inter.reply(f"Button: {button_text}")
-
 
 bot.run(token)
