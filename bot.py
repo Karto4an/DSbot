@@ -193,22 +193,22 @@ async def on_raw_reaction_add(payload):
         if reaction == "<:Dota2:861364008719613973>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
-            role = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
-            await payload.member.add_roles(role)
+            role1 = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
+            await payload.member.add_roles(role1)
             await check_role(payload.member)
 
         elif reaction == "<:CSGO:861941066847879198>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
-            role = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
-            await payload.member.add_roles(role)
+            role2 = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
+            await payload.member.add_roles(role2)
             await check_role(payload.member)
 
         elif reaction == "<:BrawlStars:861363718038093825>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
-            role = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
-            await payload.member.add_roles(role)
+            role3 = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
+            await payload.member.add_roles(role3)
             await check_role(payload.member)
         elif reaction == "❌":
             guild = bot.get_guild(payload.guild_id)
@@ -219,6 +219,10 @@ async def on_raw_reaction_add(payload):
             await message.remove_reaction('<:Dota2:861364008719613973>', member)
             await message.remove_reaction('<:CSGO:861941066847879198>', member)
             await message.remove_reaction('<:BrawlStars:861363718038093825>', member)
+            
+            await payload.member.remove_roles(role3)
+            await payload.member.remove_roles(role2)
+            await payload.member.remove_roles(role1)
 
 async def check_role(member):
     role = discord.utils.get(member.guild.roles, name = '🌎𝙁𝙍𝙄𝙀𝙉𝘿')
