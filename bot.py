@@ -190,24 +190,26 @@ async def on_raw_reaction_add(payload):
         user = await bot.fetch_user(payload.user_id)
         reaction = str(payload.emoji)
         print(reaction)
+        
+        role3 = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер') 
+        role1 = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
+        role2 = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
+        
         if reaction == "<:Dota2:861364008719613973>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
-            role1 = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
             await payload.member.add_roles(role1)
             await check_role(payload.member)
 
         elif reaction == "<:CSGO:861941066847879198>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
-            role2 = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
             await payload.member.add_roles(role2)
             await check_role(payload.member)
 
         elif reaction == "<:BrawlStars:861363718038093825>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
-            role3 = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
             await payload.member.add_roles(role3)
             await check_role(payload.member)
         elif reaction == "❌":
