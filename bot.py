@@ -2,6 +2,8 @@ import discord
 from discord import guild
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
+from dislash import SlashClient, ActionRow, Button, ButtonStyle
+from discord_components import DiscordComponents, Button
 import os
 from dotenv import load_dotenv
 
@@ -227,5 +229,34 @@ async def check_role(member):
         await member.add_roles(role_dev)
     elif role not in member.roles:
         await member.add_roles(role)
+
+@bot.command()
+async def test(ctx):
+    # Make a row of buttons
+    row_of_buttons = ActionRow(
+        Button(
+            style=ButtonStyle.green,
+            label="Green button",
+            custom_id="green"
+        ),
+        Button(
+            style=ButtonStyle.red,
+            label="Red button",
+            custom_id="red"
+        )
+    )
+    # Send a message with buttons
+    msg = await ctx.send(
+        "This message has buttons!",
+        components=[row_of_buttons]
+    )
+    # Wait for someone to click on them
+    def check(inter):
+        return inter.message.id == msg.id
+    inter = await ctx.wait_for_button_click(check)
+    # Send what you received
+    button_text = inter.clicked_button.label
+    await inter.reply(f"Button: {button_text}")
+
 
 bot.run(token)
