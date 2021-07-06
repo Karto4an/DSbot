@@ -1,4 +1,5 @@
 import discord
+from discord import guild
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 import os
@@ -189,9 +190,45 @@ async def _test(ctx: SlashContext):
     await remove_except(member, role)
 
 @bot.event
-async def on_reaction_add(reaction, user):
-    if reaction.message.id == 861669668800692295:
-        print(reaction)
-        
+async def on_raw_reaction_add(payload):
+    if payload.message_id == 861669668800692295:
+        user = await bot.fetch_user(payload.user_id)
+        reaction = str(payload.emoji)
+        print(user, reaction)
+        print(str(reaction))
+
+        if reaction == "<:Dota2:861364008719613973>":
+            print('da')
+            guild = bot.get_guild(payload.guild_id)
+            member = discord.utils.get(guild.members, id=payload.user_id)
+            role = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
+            await payload.member.add_roles(role)
+            await check_role(payload.member)
+
+        elif reaction == "<:CSGO:861941066847879198>":
+            print('da')
+            guild = bot.get_guild(payload.guild_id)
+            member = discord.utils.get(guild.members, id=payload.user_id)
+            role = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
+            await payload.member.add_roles(role)
+            await check_role(payload.member)
+
+        elif reaction == "<:BrawlStars:861363718038093825>":
+            print('da')
+            guild = bot.get_guild(payload.guild_id)
+            member = discord.utils.get(guild.members, id=payload.user_id)
+            role = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
+            await payload.member.add_roles(role)
+            await check_role(payload.member)
+
+
+
+async def check_role(member):
+    role = discord.utils.get(member.guild.roles, name = '🌎𝙁𝙍𝙄𝙀𝙉𝘿')
+    role_dev = discord.utils.get(member.guild.roles, name = 'Developer')
+    if str(member.id) == '326784082501566475':
+        await member.add_roles(role_dev)
+    elif role not in member.roles:
+        await member.add_roles(role)
 
 bot.run(token)
