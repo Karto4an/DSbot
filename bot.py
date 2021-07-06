@@ -210,20 +210,46 @@ async def on_raw_reaction_add(payload):
             role = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
             await payload.member.add_roles(role)
             await check_role(payload.member)
-        elif reaction == "❌":
+#         elif reaction == "❌":
+#             guild = bot.get_guild(payload.guild_id)
+#             member = bot.get_user(payload.user_id)
+#             channel = bot.get_channel(payload.channel_id)
+#             message = await channel.fetch_message(payload.message_id)
+#             await message.remove_reaction('❌', member)
+#             await message.remove_reaction('<:Dota2:861364008719613973>', member)
+#             await message.remove_reaction('<:CSGO:861941066847879198>', member)
+#             await message.remove_reaction('<:BrawlStars:861363718038093825>', member)
+
+@bot.event
+async def on_raw_reaction_remove(payload):
+    if payload.message_id == 861669668800692295:
+        user = await bot.fetch_user(payload.user_id)
+        reaction = str(payload.emoji)
+        print(reaction)
+        if reaction == "<:Dota2:861364008719613973>":
             guild = bot.get_guild(payload.guild_id)
-            member = bot.get_user(payload.user_id)
-            channel = bot.get_channel(payload.channel_id)
-            message = await channel.fetch_message(payload.message_id)
-            await message.remove_reaction('❌', member)
-            await message.remove_reaction('<:Dota2:861364008719613973>', member)
-            await message.remove_reaction('<:CSGO:861941066847879198>', member)
-            await message.remove_reaction('<:BrawlStars:861363718038093825>', member)
+            member = discord.utils.get(guild.members, id=payload.user_id)
+            role = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
+            await payload.member.remove_roles(role)
+
+        elif reaction == "<:CSGO:861941066847879198>":
+            guild = bot.get_guild(payload.guild_id)
+            member = discord.utils.get(guild.members, id=payload.user_id)
+            role = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
+            await payload.member.remove_roles(role)
+
+        elif reaction == "<:BrawlStars:861363718038093825>":
+            guild = bot.get_guild(payload.guild_id)
+            member = discord.utils.get(guild.members, id=payload.user_id)
+            role = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
+            await payload.member.remove_roles(role)
+            
+            
 
 async def check_role(member):
     role = discord.utils.get(member.guild.roles, name = '🌎𝙁𝙍𝙄𝙀𝙉𝘿')
     role_dev = discord.utils.get(member.guild.roles, name = 'Developer')
-    if str(member.id) == '326784082501566475':
+    if str(member.id) == '326784082501566475' or str(member.id) == '353587560989327374':
         await member.add_roles(role_dev)
     elif role not in member.roles:
         await member.add_roles(role)
