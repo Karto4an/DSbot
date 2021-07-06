@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 token = os.getenv('BOT_TOKEN')
 
-bot = commands.Bot(command_prefix = '...') # , intents=discord.Intents.all()
+bot = commands.Bot(command_prefix = '...', intents=discord.Intents.all()) # , intents=discord.Intents.all()
 slash = SlashCommand(bot)
 
 async def remove_except(member, role):
@@ -189,11 +189,8 @@ async def on_raw_reaction_add(payload):
     if payload.message_id == 861669668800692295:
         user = await bot.fetch_user(payload.user_id)
         reaction = str(payload.emoji)
-        print(user, reaction)
-        print(str(reaction))
-
+        print(reaction)
         if reaction == "<:Dota2:861364008719613973>":
-            print('da')
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
             role = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
@@ -201,7 +198,6 @@ async def on_raw_reaction_add(payload):
             await check_role(payload.member)
 
         elif reaction == "<:CSGO:861941066847879198>":
-            print('da')
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
             role = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
@@ -209,14 +205,20 @@ async def on_raw_reaction_add(payload):
             await check_role(payload.member)
 
         elif reaction == "<:BrawlStars:861363718038093825>":
-            print('da')
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
             role = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер')
             await payload.member.add_roles(role)
             await check_role(payload.member)
-
-
+        elif reaction == "❌":
+            guild = bot.get_guild(payload.guild_id)
+            member = bot.get_user(payload.user_id)
+            channel = bot.get_channel(payload.channel_id)
+            message = await channel.fetch_message(payload.message_id)
+            await message.remove_reaction('❌', member)
+            await message.remove_reaction('<:Dota2:861364008719613973>', member)
+            await message.remove_reaction('<:CSGO:861941066847879198>', member)
+            await message.remove_reaction('<:BrawlStars:861363718038093825>', member)
 
 async def check_role(member):
     role = discord.utils.get(member.guild.roles, name = '🌎𝙁𝙍𝙄𝙀𝙉𝘿')
