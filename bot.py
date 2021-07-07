@@ -233,5 +233,9 @@ async def check_role(member):
         await member.add_roles(role_dev)
     elif role not in member.roles:
         await member.add_roles(role)
+        
+@bot.event
+async def on_member_remove(member):
+   await bot.get_channel(835219503335997500).send(f"{member.mention} стал Игнатом")
 
 bot.run(token)
