@@ -1,14 +1,17 @@
 import discord
 from discord import guild
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord_slash import SlashCommand, SlashContext
+from datetime import datetime
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 token = os.getenv('BOT_TOKEN')
 
-bot = commands.Bot(command_prefix = '...', intents=discord.Intents.all()) # , intents=discord.Intents.all()
+intents = discord.Intents().all()
+
+bot = commands.Bot(command_prefix = '...', intents=intents) # , intents=discord.Intents.all()
 slash = SlashCommand(bot)
 
 async def remove_except(member, role):
@@ -186,14 +189,14 @@ async def _test(ctx: SlashContext):
 
 @bot.event
 async def on_raw_reaction_add(payload):
-    if payload.message_id == 861669668800692295:
+    if payload.message_id == 862474653385883668:
         user = await bot.fetch_user(payload.user_id)
         reaction = str(payload.emoji)
         print(reaction)
         
-        role3 = discord.utils.get(payload.member.guild.roles, name = '☠️Бравлер') 
-        role1 = discord.utils.get(payload.member.guild.roles, name = '👺Пудж Сергей👺')
-        role2 = discord.utils.get(payload.member.guild.roles, name = '🔫Каэсер')
+        role3 = discord.utils.get(payload.member.guild.roles, name = '☠️𝐁𝐫𝐚𝐰𝐥 𝐒𝐭𝐚𝐫𝐬') 
+        role1 = discord.utils.get(payload.member.guild.roles, name = '👺𝐃𝐎𝐓𝐀')
+        role2 = discord.utils.get(payload.member.guild.roles, name = '🔫𝐂𝐒𝐆𝐎')
         
         if reaction == "<:Dota2:861364008719613973>":
             guild = bot.get_guild(payload.guild_id)
@@ -234,8 +237,16 @@ async def check_role(member):
     elif role not in member.roles:
         await member.add_roles(role)
         
-@bot.event
-async def on_member_remove(member):
-   await bot.get_channel(835219503335997500).send(f"{member.mention} стал Игнатом")
+@tasks.loop(minutes=5, count=None, reconnect=True, loop=None)
+async def change_status():
+    await bot.wait_until_ready()
+    guild = bot.get_guild(576409704155316234)
 
+    channel = bot.get_channel(862744855171039243)
+    print(channel)
+    member_count = len([m for m in guild.members if not m.bot])
+    print(member_count)
+    await channel.edit(name=f"All members: {member_count}")
+
+change_status.start()
 bot.run(token)
