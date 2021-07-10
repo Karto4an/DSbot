@@ -14,7 +14,6 @@ jobs:
   build:
   
     environment: python
-    timeout-minutes: 0.2
     runs-on: ubuntu-latest
       
     steps:
@@ -33,3 +32,4 @@ jobs:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       run: python bot.py
         pytest
+        timeout-minutes: 0.2
