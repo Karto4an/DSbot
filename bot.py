@@ -9,9 +9,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 token = os.getenv('BOT_TOKEN')
+
 try:
-    is_github = os.getenv('is_github')
+    is_heroku = os.getenv('is_heroku')
 except:
+    is_heroku = False
+
+if is_heroku != True:
+    try:
+        is_github = os.getenv('is_github')
+    except:
+        is_github = False
+else:
     is_github = False
 
 intents = discord.Intents().all()
