@@ -193,11 +193,11 @@ async def on_raw_reaction_add(payload):
         user = await bot.fetch_user(payload.user_id)
         reaction = str(payload.emoji)
         print(reaction)
-        
-        role3 = discord.utils.get(payload.member.guild.roles, name = '☠️𝐁𝐫𝐚𝐰𝐥 𝐒𝐭𝐚𝐫𝐬') 
+
+        role3 = discord.utils.get(payload.member.guild.roles, name = '☠️𝐁𝐫𝐚𝐰𝐥 𝐒𝐭𝐚𝐫𝐬')
         role1 = discord.utils.get(payload.member.guild.roles, name = '👺𝐃𝐎𝐓𝐀')
         role2 = discord.utils.get(payload.member.guild.roles, name = '🔫𝐂𝐒𝐆𝐎')
-        
+
         if reaction == "<:Dota2:861364008719613973>":
             guild = bot.get_guild(payload.guild_id)
             member = discord.utils.get(guild.members, id=payload.user_id)
@@ -224,7 +224,7 @@ async def on_raw_reaction_add(payload):
             await message.remove_reaction('<:Dota2:861364008719613973>', member)
             await message.remove_reaction('<:CSGO:861941066847879198>', member)
             await message.remove_reaction('<:BrawlStars:861363718038093825>', member)
-            
+
             await payload.member.remove_roles(role3)
             await payload.member.remove_roles(role2)
             await payload.member.remove_roles(role1)
@@ -236,7 +236,7 @@ async def check_role(member):
         await member.add_roles(role_dev)
     elif role not in member.roles:
         await member.add_roles(role)
-        
+
 @tasks.loop(minutes=5, count=None, reconnect=True, loop=None)
 async def change_status():
     await bot.wait_until_ready()
