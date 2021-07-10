@@ -10,12 +10,12 @@ on:
     branches: [ main ]
 
 jobs:
-  
+
   build:
-  
+
     environment: python
     runs-on: ubuntu-latest
-      
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
@@ -31,6 +31,7 @@ jobs:
       timeout-minutes: 0.2
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        is_github: True
       run: python bot.py
         pytest
-        
+

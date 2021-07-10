@@ -4,10 +4,15 @@ from discord.ext import commands, tasks
 from discord_slash import SlashCommand, SlashContext
 from datetime import datetime
 import os
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
 token = os.getenv('BOT_TOKEN')
+try:
+    is_github = os.getenv('is_github')
+except:
+    is_github = False
 
 intents = discord.Intents().all()
 
@@ -239,14 +244,20 @@ async def check_role(member):
 
 @tasks.loop(minutes=5, count=None, reconnect=True, loop=None)
 async def change_status():
-    await bot.wait_until_ready()
-    guild = bot.get_guild(576409704155316234)
+    if is_github == False:
+        await bot.wait_until_ready()
+        guild = bot.get_guild(576409704155316234)
 
-    channel = bot.get_channel(862744855171039243)
-    print(channel)
-    member_count = len([m for m in guild.members if not m.bot])
-    print(member_count)
-    await channel.edit(name=f"All members: {member_count}")
+        channel = bot.get_channel(862744855171039243)
+        print(channel)
+        member_count = len([m for m in guild.members if not m.bot])
+        print(member_count)
+        await channel.edit(name=f"All members: {member_count}")
+    else:
+        print('Running Github!')
+        time.sleep(3)
+        exit(0)
 
 change_status.start()
+
 bot.run(token)
