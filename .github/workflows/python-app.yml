@@ -10,9 +10,10 @@ on:
     branches: [ main ]
 
 jobs:
-
+  
   build:
-
+  
+    environment: python
     runs-on: ubuntu-latest
       
     steps:
