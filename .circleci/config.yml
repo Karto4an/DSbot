@@ -41,4 +41,4 @@ jobs:
             BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
             is_github: True
           # This assumes pytest is installed via the install-package step above
-          command: pytest bot.py
+          command: py.test bot.py
