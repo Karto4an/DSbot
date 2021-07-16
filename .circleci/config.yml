@@ -44,6 +44,6 @@ jobs:
             BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
             is_github: 'True'
           # This assumes pytest is installed via the install-package step above
+          # sudo pip install -r requirements.txt
           command: |
-            sudo pip install -r requirements.txt
             pipenv run python bot.py test
